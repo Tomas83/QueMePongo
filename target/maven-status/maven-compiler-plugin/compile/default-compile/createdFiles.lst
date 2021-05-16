@@ -1,0 +1,10 @@
+Prendas\Material\Material.class
+Prendas\Color.class
+Prendas\Prenda.class
+Exceptions\TipoDeParteIncorrectaException.class
+Prendas\PrendaBuilder.class
+Exceptions\TipoDeParteException.class
+Prendas\Material\TipoDeMaterial.class
+Prendas\Material\Trama.class
+Prendas\TipoDePrenda.class
+Prendas\Atuendo\Atuendo.class
