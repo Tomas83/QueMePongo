@@ -10,23 +10,23 @@ import Prendas.Atuendo.Atuendo;
 
 public class GuardaRopa
 {
-	public List<Atuendo> Sugerencias(List<Prenda> prendas,int temperatura, int rango)
+	public List<Atuendo> sugerencias(List<Prenda> prendas,int temperatura, int rango)
 	{
-		return this.Sugerencias(this.getPrendasATemperatura(prendas,temperatura,rango));
+		return this.sugerencias(this.getPrendasATemperatura(prendas,temperatura,rango));
 	}
-	public List<Atuendo> Sugerencias(List<Prenda> prendas, WeatherApiStrategy weatherApiStrategy,int rango)
+	public List<Atuendo> sugerencias(List<Prenda> prendas, WeatherApiStrategy weatherApiStrategy,int rango)
 	{
-		return this.Sugerencias(this.getPrendasATemperatura(prendas,(int)weatherApiStrategy.getTemp("Buenos Aires"),rango));
+		return this.sugerencias(this.getPrendasATemperatura(prendas,(int)weatherApiStrategy.getTemp("Buenos Aires"),rango));
 	}
 
-	public List<Atuendo> Sugerencias(List<Prenda> prendas)
+	public List<Atuendo> sugerencias(List<Prenda> prendas)
 	{
 		if (prendas.size() <= 4)
 			throw new insuficientesPrendasARangoDeTemperaturaExceptionextends("Faltan prendas");
 		List<int[]> posiblesCombinaciones = this.generate((int) prendas.size(), 4);
 		
 		List<Prenda[]> combinacionesDePrenda = posiblesCombinaciones.stream().
-												map(combinacion -> getMultipleItemsFromList(prendas, combinacion)).
+												map(combinacion -> getMultiplesPrendasDeLista(prendas, combinacion)).
 												collect(Collectors.toList());
 		
 		List<Atuendo> atuendos = new ArrayList<>();
@@ -66,7 +66,7 @@ public class GuardaRopa
 	    return combinations;
 	}
 	
-	public  Prenda[] getMultipleItemsFromList(List<Prenda> items,int[] itemsIndex)
+	public  Prenda[] getMultiplesPrendasDeLista(List<Prenda> items,int[] itemsIndex)
 	{
 		Prenda[] rescuedItems = new Prenda[itemsIndex.length];
 		

@@ -48,7 +48,7 @@ public class Atuendo {
 		chequearCantidadDePrenda(prendas,TipoDePrenda.ACCESORIO, "accesorio");
 	}
 	
-	void chequearCantidadDePrenda(List<Prenda> prendas, TipoDePrenda tipoDePrenda, String tipoPrenda)
+	private void chequearCantidadDePrenda(List<Prenda> prendas, TipoDePrenda tipoDePrenda, String tipoPrenda)
 	{
 		int prenda = (int) prendas.stream().filter(p -> p.getTipoDePrenda() == tipoDePrenda).count();
 		if (prenda > 1)

@@ -1,0 +1,95 @@
+
+@startuml
+
+package Atuendo <<Frame>> #DDDDDD
+{
+    class Atuendo
+    {
+        -checkearPrendas(List<Prenda>)
+        -chequearCantidadDePrenda(List<Prenda>)
+    }
+}
+    Atuendo->"*"Prenda
+package Api <<Frame>> #DDDDDD
+{
+    AccuWeatherHandler ..l|>WeatherApiStrategy
+    Interface WeatherApiStrategy
+    {
+        +getTemp(): float
+    }
+    class AccuWeatherHandler
+    {
+        +getTemp():float
+    }
+}
+package Material <<Frame>> #DDDDDD
+{
+    Material -u>Trama
+    Material -d->TipoDeMaterial
+    class Material{}
+    Enum TipoDeMaterial
+    {
+        ALGODON,
+        LANA,
+        SEDA
+    }
+    Enum Trama
+    {
+        CUADROS,
+        LISO,
+        RAYADO
+    }
+}
+class Prenda
+{
+    - temperaturaIdeal: Int
+    + hayColorSecundario(): boolean
+}
+Prenda-u>Color
+Prenda-u>Color
+Prenda->Material
+Prenda->TipoDePrenda
+class PrendaBuilder
+{
+    - temperaturaIdeal: Int
+    + build(): Prenda
+}
+PrendaBuilder -[dashed]->Prenda
+PrendaBuilder-r>Color
+PrendaBuilder-r>Color
+PrendaBuilder->Material
+PrendaBuilder-l>TipoDePrenda
+class GuardaRopa
+{
+    +generate(int,int):List<Int[]>
+    +getMultiplesPrendasDeLista(List<Prenda>,int[]):List<Prenda>
+    +getPrendasATemperatura(List<Prenda>,int int): List<Prenda>
+    -helper(List<init[]>,int[],int,int): void
+    +sugerencias(List<Prenda>): List<Atuendo>
+    +sugerencias(List<Prenda>,int,int): List<Atuendo>
+    +sugerencias(List<Prenda>,WeatherApiStrategy): List<Atuendo>
+}
+GuardaRopa..>Prenda
+GuardaRopa..>Atuendo
+GuardaRopa.r>WeatherApiStrategy
+Enum Color
+{
+    AZUL,
+	VERDE,
+	AMARILLO,
+	ROJO,
+	MORADO,
+	ROSA,
+	NEGRO,
+	BLANCO,
+	CELSETE,
+	NARANJA
+}
+Enum TipoDePrenda
+{
+    PARTE_SUPERIOR,
+	PARTE_INFERIOR,
+	CALZADO,
+	ACCESORIO
+}
+@endrtuml

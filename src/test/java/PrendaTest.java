@@ -90,7 +90,7 @@ public class PrendaTest {
 				  new Prenda(TipoDePrenda.ACCESORIO,material,Color.AMARILLO,20)
 				  );
 
-		  assertTrue(new GuardaRopa().Sugerencias(prendas).size()==2);
+		  assertTrue(new GuardaRopa().sugerencias(prendas).size()==2);
 	  }
 	  @Test
 	  public void conseguirMasAtuendos() {
@@ -104,7 +104,7 @@ public class PrendaTest {
 				  new Prenda(TipoDePrenda.ACCESORIO,material,Color.AMARILLO,20)
 				  );
 
-		  assertTrue(new GuardaRopa().Sugerencias(prendas).size()==4);
+		  assertTrue(new GuardaRopa().sugerencias(prendas).size()==4);
 	  }
 	  @Test
 	  public void conseguirAtuendosATemperaturaCorrecta() {
@@ -118,7 +118,7 @@ public class PrendaTest {
 				  new Prenda(TipoDePrenda.ACCESORIO,material,Color.AMARILLO,20)
 				  );
 
-		  assertTrue(new GuardaRopa().Sugerencias(prendas,20,2).size()==2);
+		  assertTrue(new GuardaRopa().sugerencias(prendas,20,2).size()==2);
 	  }
 	  @Test
 	  public void conseguirAtuendosATemperaturaCorrectaPorApi() {
@@ -132,7 +132,7 @@ public class PrendaTest {
 				  new Prenda(TipoDePrenda.ACCESORIO,material,Color.AMARILLO,12)
 				  );
 
-		  assertTrue(new GuardaRopa().Sugerencias(prendas,new AccuWeatherHandler(),15).size()==4);
+		  assertTrue(new GuardaRopa().sugerencias(prendas,new AccuWeatherHandler(),15).size()==4);
 	  }
 
 }

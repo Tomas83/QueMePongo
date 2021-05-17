@@ -17,5 +17,8 @@ public class Material {
 	public Trama getTrama() {
 		return trama;
 	}
+	public TipoDeMaterial getTipoDeMaterial() {
+		return tipoDeMaterial;
+	}
 	
 }
