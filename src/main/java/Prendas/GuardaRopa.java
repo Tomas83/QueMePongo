@@ -45,7 +45,7 @@ public class GuardaRopa
 	
 	public List<Prenda> getPrendasATemperatura(List<Prenda> prendas,int temperatura, int rango)
 	{
-		return  prendas.stream().filter(p -> p.getTemperaturaIdeal() > (temperatura -rango) && p.getTemperaturaIdeal() < (temperatura + rango)).collect(Collectors.toList());
+		return  prendas.stream().filter(p -> p.getTemperaturaIdeal() >= (temperatura -rango) && p.getTemperaturaIdeal() <= (temperatura + rango)).collect(Collectors.toList());
 
 	}
 	

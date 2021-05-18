@@ -73,11 +73,12 @@ public class PrendaTest {
 		  List<Prenda> prendas = Arrays.asList(
 				  new Prenda(TipoDePrenda.PARTE_SUPERIOR,material,Color.AMARILLO,15),
 				  new Prenda(TipoDePrenda.CALZADO,material,Color.AMARILLO,21),
+				  new Prenda(TipoDePrenda.CALZADO,material,Color.AMARILLO,18),
 				  new Prenda(TipoDePrenda.CALZADO,material,Color.AMARILLO,16),
 				  new Prenda(TipoDePrenda.ACCESORIO,material,Color.AMARILLO,19)
 				  );
 		  
-		  assertTrue(new GuardaRopa().getPrendasATemperatura(prendas,20, 2).size()==2);
+		  assertTrue(new GuardaRopa().getPrendasATemperatura(prendas,20, 2).size()==3);
 	  }
 	  @Test
 	  public void conseguirAtuendos() {
