@@ -1,6 +1,7 @@
 import static org.junit.jupiter.api.Assertions.assertArrayEquals;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
@@ -10,6 +11,14 @@ import Prendas.GuardaRopa;
 
 public class GeneralTest {
 
+	  @Test
+	  public void cloneList()
+	  {
+		  List<String> lista1 = Arrays.asList("a","b","c");
+		  List<String> lista2 = new ArrayList<>(lista1);
+		  lista2.add("d");
+		  assertEquals(lista1.size()+1,lista2.size());
+	  }
 	  @Test
 	  public void conseguirCombinaciones()
 	  {
