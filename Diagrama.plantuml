@@ -1,95 +1,147 @@
 
 @startuml
 
-package Atuendo <<Frame>> #DDDDDD
+package Usuarios <<Frame>> #DDFF33
 {
-    class Atuendo
+	class Usuario
+	{
+		+proponerPrenda(Usuario,GuardaRopa,Prenda): void
+        +proponerQuitarPrenda(Usuario,GuardaRopa,Prenda): void
+
+        -checkPropuesta(DeclaracionDePropuesta): boolean
+        
+        +aceptarPropuesta(DeclaracionDePropuesta): void
+        +rechazarPropuesta(DeclaracionDePropuesta): void
+        +revertirPropuesta(DeclaracionDePropuesta): void
+        +recibirPropuesta(DeclaracionDePropuesta): void
+	}
+}
+package Propuestas <<Frame>> #FFBB22
+{
+    Propuesta-u[hidden]>Usuario
+    Usuario-d[hidden]>Propuesta
+    Usuario-d[hidden]>DeclaracionDePropuesta
+
+    Usuario->"*"DeclaracionDePropuesta
+    Usuario->"*"DeclaracionDePropuesta
+
+    interface Propuesta
     {
-        -checkearPrendas(List<Prenda>)
-        -chequearCantidadDePrenda(List<Prenda>)
+        +aceptarPropuesta(GuardaRopa): void
+        +revertirPropuesta(GuardaRopa): void
+    }
+    class AgregarPrenda implements Propuesta
+    class RemoverPrenda implements Propuesta
+
+    class DeclaracionDePropuesta
+    {
+        +aceptarPropuesta(): void
+        +rechazarPropuesta(): void
+        +revertirPropuesta(): void
     }
 }
-    Atuendo->"*"Prenda
-package Api <<Frame>> #DDDDDD
+package Prendas <<Frame>> #33DDFF
 {
-    AccuWeatherHandler ..l|>WeatherApiStrategy
-    Interface WeatherApiStrategy
+    Usuario->"*"GuardaRopa
+    AgregarPrenda->"*" Prenda
+    RemoverPrenda->"*" Prenda
+    DeclaracionDePropuesta -> GuardaRopa
+    DeclaracionDePropuesta -> Propuesta
+
+
+    package Atuendo <<Frame>> #DDDDDD
     {
-        +getTemp(): float
+        class Atuendo
+        {
+            -checkearPrendas(List<Prenda>)
+            -chequearCantidadDePrenda(List<Prenda>)
+        }
     }
-    class AccuWeatherHandler
+        Atuendo->"*"Prenda
+    package Api <<Frame>> #DDDDDD
     {
-        +getTemp():float
+        AccuWeatherHandler ..l|>WeatherApiStrategy
+        Interface WeatherApiStrategy
+        {
+            +getTemp(): float
+        }
+        class AccuWeatherHandler
+        {
+            +getTemp():float
+        }
     }
-}
-package Material <<Frame>> #DDDDDD
-{
-    Material -u>Trama
-    Material -d->TipoDeMaterial
-    class Material{}
-    Enum TipoDeMaterial
+    package Material <<Frame>> #DDDDDD
     {
-        ALGODON,
-        LANA,
-        SEDA
+        Material -u>Trama
+        Material -d->TipoDeMaterial
+        class Material{}
+        Enum TipoDeMaterial
+        {
+            ALGODON,
+            LANA,
+            SEDA
+        }
+        Enum Trama
+        {
+            CUADROS,
+            LISO,
+            RAYADO
+        }
     }
-    Enum Trama
+    class Prenda
     {
-        CUADROS,
-        LISO,
-        RAYADO
+        - temperaturaIdeal: Int
+        + hayColorSecundario(): boolean
     }
+    Prenda-u>Color
+    Prenda-u>Color
+    Prenda->Material
+    Prenda->TipoDePrenda
+    class PrendaBuilder
+    {
+        - temperaturaIdeal: Int
+        + build(): Prenda
+    }
+    PrendaBuilder -[dashed]->Prenda
+    PrendaBuilder-r>Color
+    PrendaBuilder-r>Color
+    PrendaBuilder->Material
+    PrendaBuilder-l>TipoDePrenda
+    class GuardaRopa
+    {
+        +generate(int,int):List<Int[]>
+        +getMultiplesPrendasDeLista(List<Prenda>,int[]):List<Prenda>
+        +getPrendasATemperatura(List<Prenda>,int int): List<Prenda>
+        -helper(List<init[]>,int[],int,int): void
+        +sugerencias(List<Prenda>): List<Atuendo>
+        +sugerencias(List<Prenda>,int,int): List<Atuendo>
+        +sugerencias(List<Prenda>,WeatherApiStrategy): List<Atuendo>
+    }
+    GuardaRopa..>Prenda
+    GuardaRopa..>Atuendo
+    GuardaRopa.r>WeatherApiStrategy
+    Enum Color
+    {
+        AZUL,
+        VERDE,
+        AMARILLO,
+        ROJO,
+        MORADO,
+        ROSA,
+        NEGRO,
+        BLANCO,
+        CELSETE,
+        NARANJA
+    }
+    Enum TipoDePrenda
+    {
+        PARTE_SUPERIOR,
+        PARTE_INFERIOR,
+        CALZADO,
+        ACCESORIO
+    }
+
 }
-class Prenda
-{
-    - temperaturaIdeal: Int
-    + hayColorSecundario(): boolean
-}
-Prenda-u>Color
-Prenda-u>Color
-Prenda->Material
-Prenda->TipoDePrenda
-class PrendaBuilder
-{
-    - temperaturaIdeal: Int
-    + build(): Prenda
-}
-PrendaBuilder -[dashed]->Prenda
-PrendaBuilder-r>Color
-PrendaBuilder-r>Color
-PrendaBuilder->Material
-PrendaBuilder-l>TipoDePrenda
-class GuardaRopa
-{
-    +generate(int,int):List<Int[]>
-    +getMultiplesPrendasDeLista(List<Prenda>,int[]):List<Prenda>
-    +getPrendasATemperatura(List<Prenda>,int int): List<Prenda>
-    -helper(List<init[]>,int[],int,int): void
-    +sugerencias(List<Prenda>): List<Atuendo>
-    +sugerencias(List<Prenda>,int,int): List<Atuendo>
-    +sugerencias(List<Prenda>,WeatherApiStrategy): List<Atuendo>
-}
-GuardaRopa..>Prenda
-GuardaRopa..>Atuendo
-GuardaRopa.r>WeatherApiStrategy
-Enum Color
-{
-    AZUL,
-	VERDE,
-	AMARILLO,
-	ROJO,
-	MORADO,
-	ROSA,
-	NEGRO,
-	BLANCO,
-	CELSETE,
-	NARANJA
-}
-Enum TipoDePrenda
-{
-    PARTE_SUPERIOR,
-	PARTE_INFERIOR,
-	CALZADO,
-	ACCESORIO
-}
+
+
 @endrtuml

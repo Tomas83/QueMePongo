@@ -14,15 +14,10 @@ public class GuardaRopa
 	
 	private List<Prenda> prendas;
 
-	//List<Propuesta> propuestas;
-	//List<Propuesta> propuestasAceptadas;
-	
 
 
 	public GuardaRopa() {
 		this.prendas = new ArrayList<>();
-		//this.propuestas = new ArrayList<>();
-		//this.propuestasAceptadas = new ArrayList<>();
 	}
 	
 	//adders y removers :^D______________________________________________________________________________________________________
@@ -50,48 +45,6 @@ public class GuardaRopa
 		this.prendas = prendas;
 	}
 	
-	//Getters and setters_________________________________________________________________________________________________________
-	/*
-	public List<Propuesta> getPropuestas() {
-		return propuestas;
-	}
-
-	public List<Propuesta> getPropuestasAceptadas() {
-		return propuestasAceptadas;
-	}
-	*/
-	//Manejo de Propuestas________________________________________________________________________________________________________
-	/*public void aceptarPropuesta(Propuesta propuesta)
-	{
-		if(propuestas.contains(propuesta))
-		{
-			propuesta.aceptarPropuesta(this);
-			this.propuestasAceptadas.add(propuesta);
-		}
-		else
-		{
-			//TODO: tirar error
-			
-		}
-	}
-	public GuardaRopa aniadirPropuesta(Propuesta propuesta)
-	{
-		propuestas.add(propuesta);
-		return this;
-	}
-	public void rechazarPropuesta(Propuesta propuesta)
-	{
-		propuestas.remove(propuesta);
-	}
-	
-	public void revertirPropuesta(Propuesta propuesta)
-	{
-		if(propuestasAceptadas.contains(propuesta))
-		{
-			propuesta.revertirPropuesta(this);
-			propuestas.add(propuesta);
-		}
-	}*/
 	//_____________________________________________________________________________________________________________________________
 
 	
