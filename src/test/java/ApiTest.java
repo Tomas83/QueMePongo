@@ -9,6 +9,6 @@ public class ApiTest {
 	 @Test
 	  public void conseguirCombinaciones()
 	  {
-		 assertEquals(13, new AccuWeatherHandler().getTemp("Buenos Aires"));
+		 assertEquals(13, AccuWeatherHandler.getAccuWeatherHandler().getTemp("Buenos Aires"));
 	  }
 }

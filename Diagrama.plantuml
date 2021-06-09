@@ -3,10 +3,15 @@
 
 package Usuarios <<Frame>> #DDFF33
 {
+
+    RepositorioUsuario ->"*" Usuario
 	class Usuario
 	{
 		+proponerPrenda(Usuario,GuardaRopa,Prenda): void
         +proponerQuitarPrenda(Usuario,GuardaRopa,Prenda): void
+
+        +generarTodasSugerenciasPosibles(WeatherApiStrategy,int):List<Atuendo>
+        +actualizarSugerenciaDelDia(List<Atuendo>): void
 
         -checkPropuesta(DeclaracionDePropuesta): boolean
         
@@ -15,6 +20,11 @@ package Usuarios <<Frame>> #DDFF33
         +revertirPropuesta(DeclaracionDePropuesta): void
         +recibirPropuesta(DeclaracionDePropuesta): void
 	}
+    class RepositorioUsuario << (S,#FF7700) Singleton >>
+    {
+        +addUsuario(Usuario): void
+        +ActualizarSugerenciasDeUsuarios(WeatherApiStrategy,int): void
+    }
 }
 package Propuestas <<Frame>> #FFBB22
 {
@@ -40,9 +50,25 @@ package Propuestas <<Frame>> #FFBB22
         +revertirPropuesta(): void
     }
 }
+package Api <<Frame>> #DDDDDD
+{
+    AccuWeatherHandler ..l|>WeatherApiStrategy
+    Interface WeatherApiStrategy
+    {
+        +getTemp(): float
+        +getCondicionesClimaticas(): List<String>
+    }
+    class AccuWeatherHandler << (S,#FF7700) Singleton >>
+    {
+        +getTemp():float
+        -fahrenheitToCelsius(): float
+        +getCondicionesClimaticas(): List<String>
+    }
+}
 package Prendas <<Frame>> #33DDFF
 {
     Usuario->"*"GuardaRopa
+    Usuario->"*"Atuendo
     AgregarPrenda->"*" Prenda
     RemoverPrenda->"*" Prenda
     DeclaracionDePropuesta -> GuardaRopa
@@ -58,18 +84,7 @@ package Prendas <<Frame>> #33DDFF
         }
     }
         Atuendo->"*"Prenda
-    package Api <<Frame>> #DDDDDD
-    {
-        AccuWeatherHandler ..l|>WeatherApiStrategy
-        Interface WeatherApiStrategy
-        {
-            +getTemp(): float
-        }
-        class AccuWeatherHandler
-        {
-            +getTemp():float
-        }
-    }
+    
     package Material <<Frame>> #DDDDDD
     {
         Material -u>Trama
@@ -100,6 +115,7 @@ package Prendas <<Frame>> #33DDFF
     class PrendaBuilder
     {
         - temperaturaIdeal: Int
+        - climasApropiados : List<String>
         + build(): Prenda
     }
     PrendaBuilder -[dashed]->Prenda
@@ -112,14 +128,16 @@ package Prendas <<Frame>> #33DDFF
         +generate(int,int):List<Int[]>
         +getMultiplesPrendasDeLista(List<Prenda>,int[]):List<Prenda>
         +getPrendasATemperatura(List<Prenda>,int int): List<Prenda>
+        +getPrendasParaClima(List<Prenda>,int int): List<Prenda>
         -helper(List<init[]>,int[],int,int): void
         +sugerencias(List<Prenda>): List<Atuendo>
         +sugerencias(List<Prenda>,int,int): List<Atuendo>
         +sugerencias(List<Prenda>,WeatherApiStrategy): List<Atuendo>
+        +sugerencias(WeatherApiStrategy,int): List<Atuendo>
     }
     GuardaRopa..>Prenda
     GuardaRopa..>Atuendo
-    GuardaRopa.r>WeatherApiStrategy
+
     Enum Color
     {
         AZUL,

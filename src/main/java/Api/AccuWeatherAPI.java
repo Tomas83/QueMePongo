@@ -10,6 +10,7 @@ public final class AccuWeatherAPI {
 			put("WeatherIcon", 33);
 			put("IconPhrase", "Clear");
 			put("IsDaylight", false);
+			put("CurrentAlerts", Arrays.asList("Granizo", "Ventisca","Aliens"));
 			put("PrecipitationProbability", 0);
 			put("MobileLink", "http://m.accuweather.com/en/ar/villa-vil/7984/");
 			put("Link", "http://www.accuweather.com/en/ar/villa-vil/7984");

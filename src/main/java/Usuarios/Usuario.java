@@ -3,7 +3,10 @@ package Usuarios;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+
+import Api.WeatherApiStrategy;
 import Prendas.*;
+import Prendas.Atuendo.Atuendo;
 import Usuarios.Propuestas.AgregarPrenda;
 import Usuarios.Propuestas.DeclaracionDePropuesta;
 import Usuarios.Propuestas.Propuesta;
@@ -16,6 +19,41 @@ public class Usuario {
 	private List<DeclaracionDePropuesta> declaracionDePropuestas = new ArrayList<>();
 	
 	private List<DeclaracionDePropuesta> propuestasAceptadas = new ArrayList<>();
+	
+	private List<Atuendo> sugerenciaDelDia;
+	
+	public Usuario()
+	{
+		this.guardaRopas = new ArrayList<>();
+		this.declaracionDePropuestas = new ArrayList<>();
+		this.propuestasAceptadas = new ArrayList<>();
+		this.sugerenciaDelDia = new ArrayList<>();
+		RepositorioUsuario.getRepositorioUsuario().addUsuario(this);
+	}
+	
+	public void actualizarSugerenciaDelDia(List<Atuendo> sugerenciaDelDia)
+	{
+		this.sugerenciaDelDia = sugerenciaDelDia;
+	}
+	
+	public List<Atuendo> generarTodasSugerenciasPosibles(WeatherApiStrategy weatherApiStrategy,int rango)
+	{
+		List<Atuendo> listaCompleta = new ArrayList<>();
+			for(GuardaRopa guardaRopa:guardaRopas)
+			{
+				List<Atuendo> sugerencias = new ArrayList<>();
+				try
+				{
+					sugerencias = guardaRopa.sugerencias(weatherApiStrategy, rango);
+				}
+				catch (Exception e)
+				{
+					
+				}
+				listaCompleta.addAll(sugerencias);
+			}
+		return listaCompleta;
+	}
 
 	public void agregarGuadaRopa(GuardaRopa guardaRopa)
 	{
@@ -80,5 +118,9 @@ public class Usuario {
 	{
 		if (guardaRopas.contains(declaracionDePropuesta.getGuardaRopa()))
 		this.declaracionDePropuestas.add(declaracionDePropuesta);
+	}
+
+	public List<Atuendo> getSugerenciaDelDia() {
+		return sugerenciaDelDia;
 	}
 }

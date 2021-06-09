@@ -2,6 +2,7 @@ package Prendas;
 
 import Prendas.Material.Material;
 
+import java.util.List;
 import java.util.Objects;
 
 
@@ -12,6 +13,7 @@ public class PrendaBuilder {
 	private Color colorPrincipal;
 	private Color colorSecundario = null;
 	private int temperaturaIdeal;
+	private List<String> climasApropiados;
 	
 	public TipoDePrenda getTipoDePrenda() {
 		return tipoDePrenda;
@@ -43,6 +45,16 @@ public class PrendaBuilder {
 		this.colorSecundario = colorSecundario;
 		return this;
 	}
+	public PrendaBuilder setTemperaturaIdeal(int temperaturaIdeal) {
+		this.temperaturaIdeal = temperaturaIdeal;
+		return this;
+	}
+	
+
+	public PrendaBuilder setClimasApropiados(List<String> climasApropiados) {
+		this.climasApropiados = climasApropiados;
+		return this;
+	}
 	public Prenda buildPrenda()
 	{
 		return new Prenda(
@@ -50,12 +62,8 @@ public class PrendaBuilder {
 				Objects.requireNonNull(material, "Falta material"),
 				Objects.requireNonNull(colorPrincipal, "Falta color principal"),
 				colorSecundario,
-				Objects.requireNonNull(temperaturaIdeal,"Falta la temperatura de uso")
+				Objects.requireNonNull(temperaturaIdeal,"Falta la temperatura de uso"),
+				Objects.requireNonNull(climasApropiados,"Faltan los climas ideales de uso")
 				);
 	}
-	public PrendaBuilder setTemperaturaIdeal(int temperaturaIdeal) {
-		this.temperaturaIdeal = temperaturaIdeal;
-		return this;
-	}
-	
 }

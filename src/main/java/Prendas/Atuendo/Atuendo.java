@@ -27,18 +27,6 @@ public class Atuendo {
 		checkearPrendas(prendasList);
 		this.prendas = prendasList;
 	}
-	/*
-	private boolean checkearPrendas (List<Prenda> prendas)
-	{
-		return	chequearCantidadDePrenda(prendas, TipoDePrenda.PARTE_SUPERIOR) &&
-				chequearCantidadDePrenda(prendas, TipoDePrenda.PARTE_INFERIOR) &&
-				chequearCantidadDePrenda(prendas, TipoDePrenda.CALZADO) &&
-				chequearCantidadDePrenda(prendas, TipoDePrenda.ACCESORIO);
-	}
-	private boolean chequearCantidadDePrenda(List<Prenda> prendas, TipoDePrenda tipoDePrenda)
-	{
-		return (int) prendas.stream().filter(p -> p.getTipoDePrenda() == tipoDePrenda).count() != 1;
-	}*/
 	
 	private void checkearPrendas (List<Prenda> prendas)
 	{
@@ -59,4 +47,13 @@ public class Atuendo {
 	public List<Prenda> getPrendas() {
 		return prendas;
 	}
+	@Override
+	public String toString() {
+		String temp = "Atuendo ";
+		for(Prenda prenda:prendas)
+			temp+=prenda.toString();
+		return temp;
+		
+	}
+	
 }

@@ -2,6 +2,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
@@ -29,9 +30,9 @@ public class PropuestasTest
 
 	Material material = new Material(TipoDeMaterial.ALGODON);
 
-	Prenda prenda1 =  new Prenda(TipoDePrenda.PARTE_SUPERIOR,material,Color.BLANCO,12);
-	Prenda prenda2 =  new Prenda(TipoDePrenda.PARTE_SUPERIOR,material,Color.AZUL,13);
-	Prenda prenda3 =  new Prenda(TipoDePrenda.PARTE_SUPERIOR,material,Color.VERDE,14);
+	Prenda prenda1 =  new Prenda(TipoDePrenda.PARTE_SUPERIOR,material,Color.BLANCO,12 ,new ArrayList<>());
+	Prenda prenda2 =  new Prenda(TipoDePrenda.PARTE_SUPERIOR,material,Color.AZUL,13 ,new ArrayList<>());
+	Prenda prenda3 =  new Prenda(TipoDePrenda.PARTE_SUPERIOR,material,Color.VERDE,14 ,new ArrayList<>());
 	
 	@BeforeEach
 	public void agruegarUsuariosYGuadaropas()
@@ -43,12 +44,12 @@ public class PropuestasTest
 		usuario4.agregarGuadaRopa(guardaRopa3);
 
 		List<Prenda> prendas = Arrays.asList(
-				  new Prenda(TipoDePrenda.PARTE_SUPERIOR,material,Color.AMARILLO,19),
-				  new Prenda(TipoDePrenda.PARTE_INFERIOR,material,Color.AMARILLO,20),
-				  new Prenda(TipoDePrenda.CALZADO,material,Color.AMARILLO,21),
-				  new Prenda(TipoDePrenda.CALZADO,material,Color.AMARILLO,16),
-				  new Prenda(TipoDePrenda.ACCESORIO,material,Color.AMARILLO,19),
-				  new Prenda(TipoDePrenda.ACCESORIO,material,Color.AMARILLO,20)
+				  new Prenda(TipoDePrenda.PARTE_SUPERIOR,material,Color.AMARILLO,19 ,new ArrayList<>()),
+				  new Prenda(TipoDePrenda.PARTE_INFERIOR,material,Color.AMARILLO,20 ,new ArrayList<>()),
+				  new Prenda(TipoDePrenda.CALZADO,material,Color.AMARILLO,21 ,new ArrayList<>()),
+				  new Prenda(TipoDePrenda.CALZADO,material,Color.AMARILLO,16 ,new ArrayList<>()),
+				  new Prenda(TipoDePrenda.ACCESORIO,material,Color.AMARILLO,19 ,new ArrayList<>()),
+				  new Prenda(TipoDePrenda.ACCESORIO,material,Color.AMARILLO,20 ,new ArrayList<>())
 				  );
 
 	}

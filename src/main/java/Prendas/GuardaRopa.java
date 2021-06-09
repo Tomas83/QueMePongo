@@ -2,6 +2,7 @@ package Prendas;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collector;
 import java.util.stream.Collectors;
 
 import Api.WeatherApiStrategy;
@@ -53,16 +54,25 @@ public class GuardaRopa
 	
 	public List<Atuendo> sugerencias(List<Prenda> prendas,int temperatura, int rango)
 	{
-		return this.sugerencias(this.getPrendasATemperatura(prendas,temperatura,rango));
+		return this.sugerencias(this.getPrendasATemperatura(temperatura,rango,prendas));
 	}
 	public List<Atuendo> sugerencias(List<Prenda> prendas, WeatherApiStrategy weatherApiStrategy,int rango)
 	{
-		return this.sugerencias(this.getPrendasATemperatura(prendas,(int)weatherApiStrategy.getTemp("Buenos Aires"),rango));
+		return this.sugerencias(
+								this.getPrendasParaClima(weatherApiStrategy.getCondicionesClimaticas("Buenos Aires"),
+								this.getPrendasATemperatura((int)weatherApiStrategy.getTemp("Buenos Aires"),rango,
+								prendas
+								)));
 	}
+	public List<Atuendo> sugerencias(WeatherApiStrategy weatherApiStrategy,int rango)
+	{
+		return this.sugerencias(this.prendas,weatherApiStrategy,rango);
+	}
+	
 
 	public List<Atuendo> sugerencias(List<Prenda> prendas)
 	{
-		if (prendas.size() <= 4)
+		if (prendas.size() < 4)
 			throw new insuficientesPrendasARangoDeTemperaturaExceptionextends("Faltan prendas");
 		List<int[]> posiblesCombinaciones = this.generate((int) prendas.size(), 4);
 		
@@ -84,7 +94,22 @@ public class GuardaRopa
 		return atuendos;
 	}
 	
-	public List<Prenda> getPrendasATemperatura(List<Prenda> prendas,int temperatura, int rango)
+	public List<Prenda> getPrendasParaClima(List<String> climas,List<Prenda> prendas)
+	{
+		return climas.size() == 0 ? prendas : prendas.stream().filter(p -> stringContains(p.getClimasApropiados(), climas)).collect(Collectors.toList());
+	}
+	
+	
+	
+	private boolean stringContains(List<String> listOfStringsToSearch, List<String> listToSearchStrings)
+	{
+		return listOfStringsToSearch.size() == 0 ? false : listOfStringsToSearch.stream().allMatch(s->stringContains(s, listToSearchStrings));
+	}
+	private boolean stringContains(String search, List<String> list)
+	{
+		return list.stream().anyMatch(s->search.equals(s));
+	}
+	public List<Prenda> getPrendasATemperatura(int temperatura, int rango,List<Prenda> prendas)
 	{
 		return  prendas.stream().filter(p -> p.getTemperaturaIdeal() >= (temperatura -rango) && p.getTemperaturaIdeal() <= (temperatura + rango)).collect(Collectors.toList());
 
